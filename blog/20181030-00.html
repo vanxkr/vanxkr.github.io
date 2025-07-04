@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>python float 与 4byte 互转 | 我的博客</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html" class="nav-home">返回主页</a>
+    </div>
+    <div class="container post-page">
+        <main>
+            <article class="post">
+                <h1>python float 与 4byte 互转</h1>
+                <div class="post-meta">
+                    2018-10-30 · 
+                    python
+                </div>
+                <div class="post-content">
+                    <div class="codehilite"><div class_="code-lang">PYTHON</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="n">__author__</span> <span class="o">=</span> \<span class="s1">'vanxkr.com</span><span class="se">\'</span>
+
+<span class="kn">import</span> <span class="nn">struct</span>
+
+<span class="k">def</span> <span class="nf">byte2float</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span>\<span class="s1">'&lt;f</span><span class="se">\'</span><span class="s1">, struct.pack(</span><span class="se">\'</span><span class="s1">4b</span><span class="se">\'</span><span class="s1">,*x))[0]</span>
+
+<span class="k">def</span> <span class="nf">float2byte</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nb">hex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>\<span class="s1">'f</span><span class="se">\'</span><span class="s1">,f)]</span>
+
+<span class="n">byte2float</span><span class="p">([</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">])</span>
+<span class="mf">50.0</span>
+
+<span class="n">flaot2byte</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="p">[</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x3F</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 我的博客 · 基于Markdown生成</p>
+    </footer>
+</body>
+</html>

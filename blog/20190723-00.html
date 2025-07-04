@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>各类文件头标准编码 | 我的博客</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html" class="nav-home">返回主页</a>
+    </div>
+    <div class="container post-page">
+        <main>
+            <article class="post">
+                <h1>各类文件头标准编码</h1>
+                <div class="post-meta">
+                    2019-07-23 · 
+                    编码
+                </div>
+                <div class="post-content">
+                    <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">jpg</span><span class="o">:</span><span class="w"> </span><span class="n">FF</span><span class="w"> </span><span class="n">D8</span><span class="w"> </span><span class="n">FF</span>
+<span class="n">png</span><span class="o">:</span><span class="w"> </span><span class="mi">89</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="mi">4</span><span class="n">E</span><span class="w"> </span><span class="mi">47</span>
+<span class="n">gif</span><span class="o">:</span><span class="w"> </span><span class="mi">47</span><span class="w"> </span><span class="mi">49</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="mi">38</span>
+<span class="n">bmp</span><span class="o">:</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="mi">4</span><span class="n">D</span>
+<span class="n">pyc</span><span class="o">:</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="n">F3</span><span class="w"> </span><span class="mi">0</span><span class="n">D</span><span class="w"> </span><span class="mi">0</span><span class="n">A</span>
+<span class="n">pyd</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="n">D</span><span class="w"> </span><span class="mi">5</span><span class="n">A</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="mi">00</span>
+<span class="n">zip</span><span class="o">:</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="mi">4</span><span class="n">B</span><span class="w"> </span><span class="mi">03</span><span class="w"> </span><span class="mi">04</span><span class="w"> </span><span class="err">#</span><span class="n">ascii码部分是PK</span><span class="err">，可以直接根据</span><span class="n">PK判断是zip文件</span><span class="err">，也有可能是</span><span class="n">doc文件</span>
+<span class="n">rar</span><span class="o">:</span><span class="w"> </span><span class="mi">52</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">21</span>
+<span class="mi">7</span><span class="n">z</span><span class="o">:</span><span class="w"> </span><span class="mi">37</span><span class="w"> </span><span class="mi">7</span><span class="n">A</span><span class="w"> </span><span class="n">BC</span><span class="w"> </span><span class="n">AF</span><span class="w"> </span><span class="mi">27</span><span class="w"> </span><span class="mi">1</span><span class="n">C</span>
+<span class="n">xls</span><span class="o">/</span><span class="n">doc</span><span class="o">:</span><span class="w"> </span><span class="n">D0</span><span class="w"> </span><span class="n">CF</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">E0</span>
+<span class="n">dwg</span><span class="o">:</span><span class="w"> </span><span class="mi">41</span><span class="w"> </span><span class="mi">43</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="mi">30</span>
+<span class="n">psd</span><span class="o">:</span><span class="w"> </span><span class="mi">38</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="mi">53</span>
+<span class="n">rtf</span><span class="o">:</span><span class="w"> </span><span class="mi">7</span><span class="n">B</span><span class="w"> </span><span class="mi">5</span><span class="n">C</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">74</span><span class="w"> </span><span class="mi">66</span>
+<span class="n">xml</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="n">C</span><span class="w"> </span><span class="mi">3</span><span class="n">F</span><span class="w"> </span><span class="mi">78</span><span class="w"> </span><span class="mi">6</span><span class="n">D</span><span class="w"> </span><span class="mi">6</span><span class="n">C</span>
+<span class="n">html</span><span class="o">:</span><span class="w"> </span><span class="mi">68</span><span class="w"> </span><span class="mi">74</span><span class="w"> </span><span class="mi">6</span><span class="n">D</span><span class="w"> </span><span class="mi">6</span><span class="n">C</span><span class="w"> </span><span class="mi">3</span><span class="n">E</span>
+<span class="n">eml</span><span class="o">:</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">6</span><span class="n">C</span><span class="w"> </span><span class="mi">69</span><span class="w"> </span><span class="mi">76</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">79</span><span class="w"> </span><span class="mi">2</span><span class="n">D</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="mi">74</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">3</span><span class="n">A</span>
+<span class="n">dbx</span><span class="o">:</span><span class="w"> </span><span class="n">CF</span><span class="w"> </span><span class="n">AD</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="n">FE</span><span class="w"> </span><span class="n">C5</span><span class="w"> </span><span class="n">FD</span><span class="w"> </span><span class="mi">74</span><span class="w"> </span><span class="mi">6</span><span class="n">F</span>
+<span class="n">pst</span><span class="o">:</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">4</span><span class="n">E</span>
+<span class="n">mdb</span><span class="o">:</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="mi">74</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="mi">6</span><span class="n">E</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">4</span><span class="n">A</span>
+<span class="n">wpd</span><span class="o">:</span><span class="w"> </span><span class="n">FF</span><span class="w"> </span><span class="mi">57</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="mi">43</span>
+<span class="n">eps</span><span class="o">/</span><span class="n">ps</span><span class="o">:</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="mi">2</span><span class="n">D</span><span class="w"> </span><span class="mi">41</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="mi">6</span><span class="n">F</span><span class="w"> </span><span class="mi">62</span><span class="w"> </span><span class="mi">65</span>
+<span class="n">pdf</span><span class="o">:</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="mi">2</span><span class="n">D</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="mi">2</span><span class="n">E</span>
+<span class="n">qdf</span><span class="o">:</span><span class="w"> </span><span class="n">AC</span><span class="w"> </span><span class="mi">9</span><span class="n">E</span><span class="w"> </span><span class="n">BD</span><span class="w"> </span><span class="mi">8</span><span class="n">F</span>
+<span class="n">pwl</span><span class="o">:</span><span class="w"> </span><span class="n">E3</span><span class="w"> </span><span class="mi">82</span><span class="w"> </span><span class="mi">85</span><span class="w"> </span><span class="mi">96</span>
+<span class="n">wav</span><span class="o">:</span><span class="w"> </span><span class="mi">57</span><span class="w"> </span><span class="mi">41</span><span class="w"> </span><span class="mi">56</span><span class="w"> </span><span class="mi">45</span>
+<span class="n">avi</span><span class="o">:</span><span class="w"> </span><span class="mi">41</span><span class="w"> </span><span class="mi">56</span><span class="w"> </span><span class="mi">49</span><span class="w"> </span><span class="mi">20</span>
+<span class="n">ram</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">E</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">61</span><span class="w"> </span><span class="n">FD</span>
+<span class="n">rm</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">E</span><span class="w"> </span><span class="mi">52</span><span class="w"> </span><span class="mi">4</span><span class="n">D</span><span class="w"> </span><span class="mi">46</span>
+<span class="n">mpg</span><span class="o">:</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">01</span><span class="w"> </span><span class="n">BA</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">00</span><span class="w"> </span><span class="mi">01</span><span class="w"> </span><span class="n">B3</span>
+<span class="n">mov</span><span class="o">:</span><span class="w"> </span><span class="mi">6</span><span class="n">D</span><span class="w"> </span><span class="mi">6</span><span class="n">F</span><span class="w"> </span><span class="mi">6</span><span class="n">F</span><span class="w"> </span><span class="mi">76</span>
+<span class="n">asf</span><span class="o">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">26</span><span class="w"> </span><span class="n">B2</span><span class="w"> </span><span class="mi">75</span><span class="w"> </span><span class="mi">8</span><span class="n">E</span><span class="w"> </span><span class="mi">66</span><span class="w"> </span><span class="n">CF</span><span class="w"> </span><span class="mi">11</span>
+<span class="n">mid</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="n">D</span><span class="w"> </span><span class="mi">54</span><span class="w"> </span><span class="mi">68</span><span class="w"> </span><span class="mi">64</span>
+</code></pre></div></td></tr></table></div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 我的博客 · 基于Markdown生成</p>
+    </footer>
+</body>
+</html>

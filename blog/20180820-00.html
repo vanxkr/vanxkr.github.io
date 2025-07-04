@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>约瑟夫环 | 我的博客</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html" class="nav-home">返回主页</a>
+    </div>
+    <div class="container post-page">
+        <main>
+            <article class="post">
+                <h1>约瑟夫环</h1>
+                <div class="post-meta">
+                    2018-08-20 · 
+                    算法, python
+                </div>
+                <div class="post-content">
+                    <div class="codehilite"><div class_="code-lang">PYTHON</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># coding: utf-8</span>
+<span class="k">def</span> <span class="nf">ysfh</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># 二维数组 [1,0] - [100,0]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="c1"># 从 1 开始</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># 直到只剩1个</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">i_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># 经过 +1</span>
+            <span class="n">s</span><span class="p">[(</span><span class="n">k</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">%</span><span class="n">i_len</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[(</span><span class="n">k</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">%</span><span class="n">i_len</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">del</span><span class="p">(</span><span class="n">s</span><span class="p">[(</span><span class="n">k</span><span class="o">+</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">i_len</span><span class="p">])</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="k">if</span> \<span class="s1">'__main__</span><span class="se">\'</span><span class="s1"> == __name__:</span>
+    <span class="n">ysfh</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 我的博客 · 基于Markdown生成</p>
+    </footer>
+</body>
+</html>

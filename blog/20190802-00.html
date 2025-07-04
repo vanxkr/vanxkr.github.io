@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qt获取机器硬件相关参数 | 我的博客</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html" class="nav-home">返回主页</a>
+    </div>
+    <div class="container post-page">
+        <main>
+            <article class="post">
+                <h1>Qt获取机器硬件相关参数</h1>
+                <div class="post-meta">
+                    2019-08-02 · 
+                    Qt
+                </div>
+                <div class="post-content">
+                    <h4>Qt获取硬件参数</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/*</span>
+<span class="cm">    wmic cpu get Name // 获取cpu名称</span>
+<span class="cm">    wmic cpu get NumberOfCores // 获取cpu核心数</span>
+<span class="cm">    wmic cpu get NumberOfLogicalProcessors // 获取cpu线程数</span>
+<span class="cm">    wmic cpu get ProcessorId // 查询cpu序列号</span>
+<span class="cm">    wmic baseboard get SerialNumber // 查询主板序列号</span>
+<span class="cm">    wmic bios get SerialNumber // 查询BIOS序列号</span>
+<span class="cm">    wmic diskdrive get SerialNumber // 查看硬盘序列号</span>
+<span class="cm">    wmic diskdrive where index=0 get SerialNumber // 查询第一个磁盘系列号</span>
+<span class="cm">    wmic nic where netconnectionid!=NULL get MacAddress // 查询不为空的MAC地址</span>
+<span class="cm">    wmic logicaldisk get name,Description,filesystem,size,freespace // 查询磁盘信息</span>
+<span class="cm">    wmic memorychip get Capacity,TAG // 查询内存信息</span>
+<span class="cm">    wmic cpu get DeviceID,name,NumberOfCores,NumberOfLogicalProcessors // 查询cpu信息</span>
+<span class="cm">    wmic os get Caption,CSDVersion,CSName,SerialNumber,Version // 查询系统信息</span>
+<span class="cm">    wmic csproduct // 获取主板信息</span>
+<span class="cm">*/</span>
+<span class="n">QString</span><span class="w"> </span><span class="nf">RunCmd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">QProcess</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">waitForFinished</span><span class="p">();</span>
+<span class="w">    </span><span class="n">QString</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">readAllStandardOutput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>还有我没写的欢迎分享</p>
+<p>我再加上去 </p>
+<p>╭(●｀∀´●)╯╰(●’◡’●)╮</p>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 我的博客 · 基于Markdown生成</p>
+    </footer>
+</body>
+</html>

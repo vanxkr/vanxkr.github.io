@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qt笔记 | 我的博客</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html" class="nav-home">返回主页</a>
+    </div>
+    <div class="container post-page">
+        <main>
+            <article class="post">
+                <h1>Qt笔记</h1>
+                <div class="post-meta">
+                    2020-10-01 · 
+                    c++, Qt
+                </div>
+                <div class="post-content">
+                    <h4>中文乱码解决方案</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 在文件最前面加下面代码</span>
+<span class="cp">#pragma execution_character_set("utf-8") </span><span class="c1">// 编译时把程序里的字符串使用 UTF-8 进行处理</span>
+
+<span class="c1">// 在 main 函数加这个</span>
+<span class="n">QTextCodec</span><span class="o">::</span><span class="n">setCodecForLocale</span><span class="p">(</span><span class="n">QTextCodec</span><span class="o">::</span><span class="n">codecForName</span><span class="p">(</span><span class="s">"UTF-8"</span><span class="p">));</span><span class="w">   </span><span class="c1">// 使用 UTF-8 的运行时环境</span>
+</code></pre></div></td></tr></table></div>
+<h4>执行文件所在绝对目录</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QApplication</span><span class="o">::</span><span class="n">applicationDirPath</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<h4>QTableView的一些用法</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">setSelectionBehavior</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">::</span><span class="n">SelectRows</span><span class="p">);</span><span class="w"> </span><span class="c1">// 行选择</span>
+<span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">::</span><span class="n">SingleSelection</span><span class="p">);</span><span class="w"> </span><span class="c1">// 单选</span>
+<span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QAbstractItemView</span><span class="o">::</span><span class="n">ExtendedSelection</span><span class="p">);</span><span class="w"> </span><span class="c1">// 多选（Ctrl、Shift、Ctrl+A都可以）</span>
+<span class="n">horizontalHeader</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s">"QHeaderView::section{background-color:rgb(225,225,225)};"</span><span class="p">);</span><span class="w"> </span><span class="c1">// 列头灰色</span>
+<span class="n">horizontalHeader</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setSectionResizeMode</span><span class="p">(</span><span class="n">QHeaderView</span><span class="o">::</span><span class="n">ResizeToContents</span><span class="p">);</span><span class="w"> </span><span class="c1">// 列宽自适应</span>
+<span class="n">horizontalHeader</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setHighlightSections</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span><span class="w"> </span><span class="c1">// 取消表头选择高亮</span>
+<span class="n">hideColumn</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 隐藏第0列 比如id</span>
+<span class="n">setModel</span><span class="p">(</span><span class="n">model</span><span class="p">);</span><span class="w"> </span><span class="c1">// 设置model</span>
+<span class="n">selectRow</span><span class="p">(</span><span class="n">row</span><span class="p">);</span><span class="w"> </span><span class="c1">// 选择第row行</span>
+<span class="n">setFocus</span><span class="p">();</span><span class="w"> </span><span class="c1">// 设置为焦点</span>
+</code></pre></div></td></tr></table></div>
+<h4>error C2338: No Q_OBJECT in the class with the signal</h4>
+<p>该类没加 <code>Q_OBJECT</code></p>
+<h4>Qt自带简单加密</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QByteArray</span><span class="w"> </span><span class="n">byte_array</span><span class="o">=</span><span class="s">"password"</span><span class="p">;</span>
+<span class="c1">// QCryptographicHash 不可逆</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">md4_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Md4</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">md5_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Md5</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">sha1_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Sha1</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">sha256_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Sha256</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">sha512_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Sha512</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">sha3_256_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Sha3_256</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">sha3_512_byte_array</span><span class="o">=</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">hash</span><span class="p">(</span><span class="n">byte_array</span><span class="p">,</span><span class="n">QCryptographicHash</span><span class="o">::</span><span class="n">Sha3_512</span><span class="p">).</span><span class="n">toHex</span><span class="p">();</span>
+<span class="c1">// Base64</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">base64_byte_array</span><span class="o">=</span><span class="n">byte_array</span><span class="p">.</span><span class="n">toBase64</span><span class="p">();</span><span class="w"> </span><span class="c1">// 加密</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">decrypt_base64</span><span class="w"> </span><span class="n">QByteArray</span><span class="o">::</span><span class="n">fromBase64</span><span class="p">(</span><span class="n">base64_byte_array</span><span class="p">);</span><span class="w"> </span><span class="c1">// 解密</span>
+</code></pre></div></td></tr></table></div>
+<h4>QMap可以这样初始化</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 使用 QMap(std::initializer_list&lt;std::pair&lt;Key, T&gt; &gt; list) 构造函数</span>
+<span class="n">QMap</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">QString</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">({{</span><span class="mi">1</span><span class="p">,</span><span class="s">"One"</span><span class="p">},{</span><span class="mi">2</span><span class="p">,</span><span class="s">"Two"</span><span class="p">}});</span>
+</code></pre></div></td></tr></table></div>
+<h4>QList遍历</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">list</span><span class="p">){</span><span class="w"> </span><span class="c1">// 只读</span>
+<span class="w">    </span><span class="c1">// i</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">list</span><span class="p">){</span><span class="w"> </span><span class="c1">// 读写</span>
+<span class="w">    </span><span class="c1">// i</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">list</span><span class="p">.</span><span class="n">cbegin</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">!=</span><span class="n">list</span><span class="p">.</span><span class="n">cend</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">){</span><span class="w"> </span><span class="c1">// 只读</span>
+<span class="w">    </span><span class="c1">// *i</span>
+<span class="w">    </span><span class="c1">// i.value()</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">list</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">!=</span><span class="n">list</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">){</span><span class="w"> </span><span class="c1">// 读写</span>
+<span class="w">    </span><span class="c1">// *i</span>
+<span class="w">    </span><span class="c1">// i.value()</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h4>QMap遍历</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QMap</span><span class="o">&lt;</span><span class="n">QString</span><span class="p">,</span><span class="n">QVariant</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">map</span><span class="p">.</span><span class="n">cbegin</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">!=</span><span class="n">map</span><span class="p">.</span><span class="n">cend</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">){</span><span class="w"> </span><span class="c1">// 只读</span>
+<span class="w">    </span><span class="c1">// i.key()</span>
+<span class="w">    </span><span class="c1">// i.value()</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">map</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">!=</span><span class="n">map</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">){</span><span class="w"> </span><span class="c1">// 读写</span>
+<span class="w">    </span><span class="c1">// i.key()</span>
+<span class="w">    </span><span class="c1">// i.value()</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h4>信号转发</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// QObject::connect(a, &amp;A::Signal, b, [=](const QString &amp;t) { b-&gt;Signal(t); });</span>
+<span class="c1">// 2019-12-25 15:32:44 更新 可以直接转发 上面的 废除</span>
+<span class="n">QObject</span><span class="o">::</span><span class="n">connect</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">Signal</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">B</span><span class="o">::</span><span class="n">Signal</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<h4>获取屏幕分辨率</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QGuiApplication</span><span class="o">::</span><span class="n">screens</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<h4>Qt最适合XP系统开发的版本</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="mf">5.6.2</span>
+</code></pre></div></td></tr></table></div>
+<h4>Qt文件路径处理</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QString</span><span class="w"> </span><span class="n">path_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QStringLiteral</span><span class="p">(</span><span class="s">"C:/test/test.txt"</span><span class="p">);</span>
+<span class="n">QString</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="n">base_name</span><span class="p">,</span><span class="w"> </span><span class="n">file_suffix</span><span class="p">;</span>
+<span class="n">QFileInfo</span><span class="w"> </span><span class="n">file_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QFileInfo</span><span class="p">(</span><span class="n">path_file</span><span class="p">);</span>
+<span class="n">file_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_info</span><span class="p">.</span><span class="n">absolutePath</span><span class="p">();</span><span class="w"> </span><span class="c1">// "C:/test" 文件路径</span>
+<span class="n">file_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_info</span><span class="p">.</span><span class="n">fileName</span><span class="p">();</span><span class="w"> </span><span class="c1">// "test.txt" 完整文件名</span>
+<span class="n">base_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_info</span><span class="p">.</span><span class="n">baseName</span><span class="p">();</span><span class="w"> </span><span class="c1">// "test" 文件名称</span>
+<span class="n">file_suffix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_info</span><span class="p">.</span><span class="n">suffix</span><span class="p">();</span><span class="w"> </span><span class="c1">// "txt" 后缀名</span>
+</code></pre></div></td></tr></table></div>
+<h4>Qt字符串转16进制</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QString</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"10 06"</span><span class="p">;</span><span class="w"> </span><span class="c1">// 字符串</span>
+<span class="n">QByteArray</span><span class="w"> </span><span class="n">hex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QByteArray</span><span class="o">::</span><span class="n">fromHex</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">toLatin1</span><span class="p">());</span><span class="w"> </span><span class="c1">// \\x10\\x06</span>
+</code></pre></div></td></tr></table></div>
+<h4>Qt16进制转字符串</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QByteArray</span><span class="w"> </span><span class="n">hex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QByteArray</span><span class="o">::</span><span class="n">fromRawData</span><span class="p">(</span><span class="s">"</span><span class="se">\\</span><span class="s">x10</span><span class="se">\\</span><span class="s">x06"</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="n">QString</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">.</span><span class="n">toHex</span><span class="p">(</span><span class="sc">' '</span><span class="p">).</span><span class="n">toUpper</span><span class="p">();</span><span class="w"> </span><span class="c1">// 10 06</span>
+</code></pre></div></td></tr></table></div>
+<h4>QButton系列 菜单栏的实现</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 创建菜单</span>
+<span class="n">__menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QMenu</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="n">__action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QAction</span><span class="p">(</span><span class="s">"test"</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span>
+<span class="n">__menu</span><span class="o">-&gt;</span><span class="n">addAction</span><span class="p">(</span><span class="n">__action</span><span class="p">);</span>
+
+<span class="c1">// 添加到按钮</span>
+<span class="n">__ui</span><span class="o">-&gt;</span><span class="n">button</span><span class="o">-&gt;</span><span class="n">setMenu</span><span class="p">(</span><span class="n">__menu</span><span class="p">);</span>
+<span class="n">__ui</span><span class="o">-&gt;</span><span class="n">button</span><span class="o">-&gt;</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s">"QPushButton::menu-indicator{image:none;}"</span><span class="p">);</span><span class="w"> </span><span class="c1">//不显示下拉图片 太丑了~</span>
+<span class="c1">// __ui-&gt;button-&gt;setStyleSheet("QToolButton::menu-indicator{image:none;}");</span>
+
+<span class="c1">// 实现按键点击事件</span>
+<span class="n">on_button_clicked</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// QPushButton 不需要主动显示菜单 且 不会进槽函数</span>
+<span class="w">    </span><span class="n">__ui</span><span class="o">-&gt;</span><span class="n">button</span><span class="o">-&gt;</span><span class="n">showMenu</span><span class="p">();</span><span class="w">   </span><span class="c1">// 这里QToolButton需要主动显示菜单</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h4>QTable系列 滚动到最前最后</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">scrollToTop</span><span class="p">();</span><span class="w"> </span><span class="c1">// 滚动到最前</span>
+<span class="n">scrollToBottom</span><span class="p">();</span><span class="w"> </span><span class="c1">// 滚动到最后</span>
+</code></pre></div></td></tr></table></div>
+<h4>UUID</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QString</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QUuid</span><span class="p">.</span><span class="n">createUuid</span><span class="p">().</span><span class="n">toString</span><span class="p">().</span><span class="n">replace</span><span class="p">(</span><span class="n">QExp</span><span class="p">(</span><span class="s">"[</span><span class="se">\\\\</span><span class="s">{</span><span class="se">\\\\</span><span class="s">}-]"</span><span class="p">).</span><span class="s">""</span><span class="p">).</span><span class="n">toUpper</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<h4>QString判断是否包含中文</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">"[</span><span class="se">\\\\</span><span class="s">x4E00-</span><span class="se">\\\\</span><span class="s">x9FA5]+"</span><span class="p">));</span><span class="w"> </span><span class="c1">// 中文的 区间在 [0x4e00,0x9fa5]</span>
+</code></pre></div></td></tr></table></div>
+<h4>获取全部可用串口并排序</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QStringList</span><span class="w"> </span><span class="n">portNames</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">portInfos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QSerialPortInfo</span><span class="o">::</span><span class="n">availablePorts</span><span class="p">();</span><span class="w"> </span><span class="c1">// 获取全部串口</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">portInfo</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">portInfos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// 查找可用的串口</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">portInfo</span><span class="p">.</span><span class="n">isValid</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">portInfo</span><span class="p">.</span><span class="n">isBusy</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// 串口有效 且 串口空闲 2020-3-23 11:47:42 添加有效性检测</span>
+<span class="w">        </span><span class="n">portNames</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">portInfo</span><span class="p">.</span><span class="n">portName</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">qSort</span><span class="p">(</span><span class="n">portNames</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">portNames</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 自定义 按照 COM后面的数字大小排序</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">mid</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">).</span><span class="n">toInt</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">mid</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="p">).</span><span class="n">toInt</span><span class="p">();</span>
+<span class="p">});</span><span class="w"> </span><span class="c1">// COMx 按x数字大小排序</span>
+</code></pre></div></td></tr></table></div>
+<h4>在预编译期间高效载入QSS文件</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// main.cpp</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">qss</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">#</span><span class="n">include</span><span class="w"> </span><span class="s">"ui.qss"</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">QApplication</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">qss</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h4>设置窗口只保留关闭按钮 且 固定大小</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">setWindowFlags</span><span class="p">(</span><span class="n">Qt</span><span class="o">::</span><span class="n">WindowCloseButtonHint</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Qt</span><span class="o">::</span><span class="n">MSWindowsFixedSizeDialogHint</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<h4>设置窗口为子窗口模式</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">setWindowModality</span><span class="p">(</span><span class="n">Qt</span><span class="o">::</span><span class="n">ApplicationModal</span><span class="p">);</span><span class="w">    </span><span class="c1">//</span>
+</code></pre></div></td></tr></table></div>
+<h4>QString正则匹配</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QString</span><span class="w"> </span><span class="n">name</span><span class="p">(</span><span class="s">"test.db"</span><span class="p">);</span>
+<span class="n">QRegExp</span><span class="p">(</span><span class="s">"^[A-Za-z]{1}[A-Za-z0-9]{2,19}</span><span class="se">\\</span><span class="s">.db$"</span><span class="p">).</span><span class="n">exactMatch</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">    </span><span class="c1">//</span>
+</code></pre></div></td></tr></table></div>
+<h4>Qt生成随机数</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="nf">generateDouble</span><span class="p">();</span><span class="w">    </span><span class="c1">// 生成一个0-1的随机浮点数</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">bounded</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">highest</span><span class="p">);</span><span class="w"> </span><span class="c1">// 生成一个0-highest的随机浮点数</span>
+<span class="n">quint32</span><span class="w"> </span><span class="nf">bounded</span><span class="p">(</span><span class="n">quint32</span><span class="w"> </span><span class="n">highest</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">bounded</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">highest</span><span class="p">);</span><span class="w">   </span><span class="c1">// 生成一个0-highest的随机整</span>
+<span class="n">quint32</span><span class="w"> </span><span class="nf">bounded</span><span class="p">(</span><span class="n">quint32</span><span class="w"> </span><span class="n">lowest</span><span class="p">,</span><span class="w"> </span><span class="n">quint32</span><span class="w"> </span><span class="n">highest</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">bounded</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">lowest</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">highest</span><span class="p">);</span>
+
+<span class="n">QRandomGenerator</span><span class="o">::</span><span class="n">global</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">bounded</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">        </span><span class="c1">// 生成一个0和10之间的整数</span>
+<span class="n">QRandomGenerator</span><span class="o">::</span><span class="n">global</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">bounded</span><span class="p">(</span><span class="mf">10.0F</span><span class="p">);</span><span class="w"> </span><span class="c1">// 生成一个0和10.123之间的浮点数</span>
+<span class="n">QRandomGenerator</span><span class="o">::</span><span class="n">global</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">bounded</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span><span class="w">    </span><span class="c1">// 生成一个10和15之间的整数</span>
+</code></pre></div></td></tr></table></div>
+<h4>QMenu 插入 QAction 到 QMenu 前</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QMenu</span><span class="w"> </span><span class="o">*</span><span class="n">menuMain0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QMenu</span><span class="p">(</span><span class="s">"主菜单0"</span><span class="p">);</span>
+<span class="n">QAction</span><span class="w"> </span><span class="o">*</span><span class="n">actionMain0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QAction</span><span class="p">(</span><span class="s">"子菜单0"</span><span class="p">);</span>
+<span class="n">menuBar</span><span class="o">-&gt;</span><span class="n">addAction</span><span class="p">(</span><span class="n">menuMain0</span><span class="o">-&gt;</span><span class="n">menuAction</span><span class="p">());</span>
+<span class="n">menuMain0</span><span class="o">-&gt;</span><span class="n">addAction</span><span class="p">(</span><span class="n">actionMain0</span><span class="p">);</span>
+<span class="c1">// 以上是 ui 自动编译</span>
+<span class="c1">// 代码里面这样插入</span>
+<span class="n">QAction</span><span class="w"> </span><span class="o">*</span><span class="n">newAction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QAction</span><span class="p">(</span><span class="s">"主菜单1"</span><span class="p">);</span><span class="w">   </span><span class="c1">// 直接在 menuBar 的 QAction</span>
+<span class="n">ui</span><span class="o">-&gt;</span><span class="n">menuBar</span><span class="o">-&gt;</span><span class="n">insertAction</span><span class="p">(</span><span class="n">ui</span><span class="p">.</span><span class="n">menuMain0</span><span class="o">-&gt;</span><span class="n">menuAction</span><span class="p">(),</span><span class="w"> </span><span class="n">newAction</span><span class="p">);</span><span class="w">   </span><span class="c1">// 插入</span>
+</code></pre></div></td></tr></table></div>
+<h4>QDir 创建多级子目录</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">QDir::mkpath</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dirPath</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<h4>将软件当前目录设置为 exe所在目录</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">QDir</span><span class="o">::</span><span class="n">setCurrent</span><span class="p">(</span><span class="n">QCoreApplication</span><span class="o">::</span><span class="n">applicationDirPath</span><span class="p">());</span><span class="w">   </span><span class="c1">// 设置当前目录为 exe所在目录</span>
+</code></pre></div></td></tr></table></div>
+<h4>判断QObject类型</h4>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">QObject::inherits</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">className</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">QObject</span><span class="o">*</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QDoubleSpinBox</span><span class="p">();</span>
+<span class="n">obj</span><span class="o">-&gt;</span><span class="n">inherits</span><span class="p">(</span><span class="s">"QDoubleSpinBox"</span><span class="p">);</span><span class="w">    </span><span class="c1">// true</span>
+<span class="n">obj</span><span class="o">-&gt;</span><span class="n">inherits</span><span class="p">(</span><span class="s">"QAbstractSpinBox"</span><span class="p">);</span><span class="w">  </span><span class="c1">// true</span>
+<span class="n">obj</span><span class="o">-&gt;</span><span class="n">inherits</span><span class="p">(</span><span class="s">"QObject"</span><span class="p">);</span><span class="w">   </span><span class="c1">// true</span>
+<span class="n">obj</span><span class="o">-&gt;</span><span class="n">inherits</span><span class="p">(</span><span class="s">"QSpinBox"</span><span class="p">);</span><span class="w">  </span><span class="c1">// false</span>
+</code></pre></div></td></tr></table></div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 我的博客 · 基于Markdown生成</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qt实现弹窗设置默认选项倒计时自动选择 | 我的博客</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html" class="nav-home">返回主页</a>
+    </div>
+    <div class="container post-page">
+        <main>
+            <article class="post">
+                <h1>Qt实现弹窗设置默认选项倒计时自动选择</h1>
+                <div class="post-meta">
+                    2019-06-27 · 
+                    Qt, c++, QMessageBox
+                </div>
+                <div class="post-content">
+                    <h2>Qt自带弹窗没有自动倒计时 我自己写了一个</h2>
+<hr/>
+<h3><code>MessageBox.h</code></h3>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#ifndef MESSAGEBOX_H</span>
+<span class="cp">#define MESSAGEBOX_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;QObject&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;QMessageBox&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;QTimer&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MessageBox</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">QObject</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Q_OBJECT</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="nc">eMessageBox</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">kYes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="c1">// 左边的按钮</span>
+<span class="w">        </span><span class="n">kNo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">// 右边的按钮以及关闭x等等</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">MessageBox</span><span class="p">(</span><span class="n">QObject</span><span class="w"> </span><span class="o">*</span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Q_NULLPTR</span><span class="p">);</span>
+<span class="w">    </span><span class="o">~</span><span class="n">MessageBox</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Exec</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">QMessageBox</span><span class="o">::</span><span class="n">Icon</span><span class="w"> </span><span class="n">icon</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">text</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">QStringList</span><span class="w"> </span><span class="o">&amp;</span><span class="n">btn_textlist</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">eMessageBox</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timer_btn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kYes</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timer_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span>
+<span class="w">        </span><span class="c1">// 默认倒计时0即不倒计时</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">QMessageBox</span><span class="w"> </span><span class="o">*</span><span class="n">__mess</span><span class="p">;</span><span class="w">    </span><span class="c1">// 弹窗主体</span>
+<span class="w">    </span><span class="n">QList</span><span class="o">&lt;</span><span class="n">QPushButton</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="n">__btn</span><span class="p">;</span><span class="w"> </span><span class="c1">// 按钮们</span>
+<span class="w">    </span><span class="n">QTimer</span><span class="w"> </span><span class="n">__timer</span><span class="p">;</span><span class="w"> </span><span class="c1">// 计时器</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">__timer_s</span><span class="p">;</span><span class="w">  </span><span class="c1">// 倒计时时间 单位s</span>
+
+<span class="nl">signals</span><span class="p">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Signal_Clicked</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">eMessageBox</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="p">);</span><span class="w">      </span><span class="c1">// 发送按下的按钮</span>
+
+<span class="k">private</span><span class="w"> </span><span class="n">slots</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Slot_Mess_buttonClicked</span><span class="p">(</span><span class="n">QAbstractButton</span><span class="w"> </span><span class="o">*</span><span class="n">button</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cp">#endif  </span><span class="c1">// MESSAGEBOX_H</span>
+</code></pre></div></td></tr></table></div>
+<hr/>
+<h3><code>MessageBox.cpp</code></h3>
+<div class="codehilite"><div class_="code-lang">C++</div><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#include \"MessageBox.h\"</span>
+
+<span class="n">MessageBox</span><span class="o">::</span><span class="n">MessageBox</span><span class="p">(</span><span class="n">QObject</span><span class="w"> </span><span class="o">*</span><span class="n">parent</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">QObject</span><span class="p">(</span><span class="n">parent</span><span class="p">){</span>
+<span class="p">}</span>
+
+<span class="n">MessageBox</span><span class="o">::~</span><span class="n">MessageBox</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Q_NULLPTR</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">__mess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">__mess</span><span class="p">;</span>
+<span class="w">        </span><span class="n">__mess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Q_NULLPTR</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">__btn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Q_NULLPTR</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">delete</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">            </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Q_NULLPTR</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">MessageBox</span><span class="o">::</span><span class="n">Exec</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">QMessageBox</span><span class="o">::</span><span class="n">Icon</span><span class="w"> </span><span class="n">icon</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">QString</span><span class="w"> </span><span class="o">&amp;</span><span class="n">text</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">QStringList</span><span class="w"> </span><span class="o">&amp;</span><span class="n">btn_textlist</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">eMessageBox</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timer_btn</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timer_s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">__mess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QMessageBox</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">);</span>
+<span class="w">    </span><span class="n">connect</span><span class="p">(</span><span class="n">__mess</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QMessageBox</span><span class="o">::</span><span class="n">buttonClicked</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MessageBox</span><span class="o">::</span><span class="n">Slot_Mess_buttonClicked</span><span class="p">);</span>
+<span class="w">    </span><span class="n">__btn</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">__mess</span><span class="o">-&gt;</span><span class="n">addButton</span><span class="p">(</span><span class="n">btn_textlist</span><span class="p">[</span><span class="n">eMessageBox</span><span class="o">::</span><span class="n">kYes</span><span class="p">],</span><span class="w"> </span><span class="n">QMessageBox</span><span class="o">::</span><span class="n">YesRole</span><span class="p">));</span>
+<span class="w">    </span><span class="n">__btn</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">__mess</span><span class="o">-&gt;</span><span class="n">addButton</span><span class="p">(</span><span class="n">btn_textlist</span><span class="p">[</span><span class="n">eMessageBox</span><span class="o">::</span><span class="n">kNo</span><span class="p">],</span><span class="w"> </span><span class="n">QMessageBox</span><span class="o">::</span><span class="n">NoRole</span><span class="p">));</span>
+<span class="w">    </span><span class="n">__timer_s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timer_s</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__timer_s</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="c1">// 时间大于0 倒计时 否则不倒计时</span>
+<span class="w">        </span><span class="n">connect</span><span class="p">(</span><span class="o">&amp;</span><span class="n">__timer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QTimer</span><span class="o">::</span><span class="n">timeout</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">--</span><span class="n">__timer_s</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__timer_s</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">__mess</span><span class="o">-&gt;</span><span class="n">buttonClicked</span><span class="p">(</span><span class="n">__btn</span><span class="p">[</span><span class="n">timer_btn</span><span class="p">]);</span><span class="w">    </span><span class="c1">// 时间到 自动按下按钮   计时器在槽里面停止</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">__btn</span><span class="p">[</span><span class="n">timer_btn</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span><span class="n">QStringLiteral</span><span class="p">(</span><span class="err">\</span><span class="s">"%1(%2)</span><span class="se">\"</span><span class="s">).arg(btn_textlist[timer_btn]).arg(__timer_s));  </span>
+<span class="w">            </span><span class="c1">// 刷新按钮上的倒计时</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="n">__timer</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w">    </span><span class="c1">// 启动计时器 1s一次</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">__mess</span><span class="o">-&gt;</span><span class="n">exec</span><span class="p">();</span><span class="w"> </span><span class="c1">// 显示弹窗</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">MessageBox</span><span class="o">::</span><span class="n">Slot_Mess_buttonClicked</span><span class="p">(</span><span class="n">QAbstractButton</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">button</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">__btn</span><span class="p">[</span><span class="n">eMessageBox</span><span class="o">::</span><span class="n">kYes</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">button</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 发送按下的按钮</span>
+<span class="w">        </span><span class="n">emit</span><span class="w"> </span><span class="nf">Signal_Clicked</span><span class="p">(</span><span class="n">eMessageBox</span><span class="o">::</span><span class="n">kYes</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">emit</span><span class="w"> </span><span class="nf">Signal_Clicked</span><span class="p">(</span><span class="n">eMessageBox</span><span class="o">::</span><span class="n">kNo</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">__timer</span><span class="p">.</span><span class="n">stop</span><span class="p">();</span><span class="w"> </span><span class="c1">// 停掉计时器</span>
+<span class="w">    </span><span class="n">__mess</span><span class="o">-&gt;</span><span class="n">close</span><span class="p">();</span><span class="w">    </span><span class="c1">// 主动关闭窗口</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr/>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>由于这是从项目里面摘出来的
+变量命名的都有所改变
+如有运行错误
+或者代码有BUG请及时告知我 
+╭(●｀∀´●)╯╰(●’◡’●)╮
+</code></pre></div></td></tr></table></div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 我的博客 · 基于Markdown生成</p>
+    </footer>
+</body>
+</html>
