@@ -437,6 +437,7 @@
         {
           name: 'NAS', links: [
           { name: 'Lucky_webdav:18800->n.vanxkr.com:11805', url: 'http://n.vanxkr.com:11805' },
+          { name: 'Lucky:16601->n.vanxkr.com:11320', url: 'http://n.vanxkr.com:11320' },
           ],
           id: 'NAS'
         },
@@ -553,28 +554,6 @@
         var a = document.getElementById(acho.split('#')[1])
         window.scrollTo({
           top: a.offsetTop,
-          behavior: 'smooth'
-        })
-      }
-
-    })
-    console.log(aside);
-    for (var i = 0; i < menu.length; i++) {
-      const ra = classes[Math.round(Math.random() * 5)];
-      var a = $(`<a class="items" id="#${menu[i].id}">`)
-        .attr('href', menu[i].target)
-        .text(menu[i].name).appendTo(aside)
-    }
-
-
-    // [2] 创建链接的按钮
-    CreateButtons(data_json.url_main, nav);
-    CreateButtons2(data_json.url_fenlei, section);
-  </script>
-</body>
-
-</html>
-    top: a.offsetTop,
           behavior: 'smooth'
         })
       }
